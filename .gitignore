@@ -25,6 +25,6 @@ hs_err_pid*
 #IntelliJ
 .idea/
 
-#Gradle wrapper should not be ignored
+#Gradle
 .gradle/
 !gradle/
