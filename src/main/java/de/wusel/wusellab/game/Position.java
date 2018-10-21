@@ -19,6 +19,9 @@ public class Position {
 	}
 
 	public Position plus(Direction direction) {
+		if (direction == Direction.NONE) {
+			return this;
+		}
 		return Position.at(x + direction.getX(), y + direction.getY());
 	}
 
