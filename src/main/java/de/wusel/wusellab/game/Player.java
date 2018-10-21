@@ -3,7 +3,7 @@ package de.wusel.wusellab.game;
 public class Player {
 
 	private Position position;
-	private Direction movementDirection = Direction.to(1, 1);
+	private Direction direction = Direction.to(1, 1);
 
 	public Player(Position position) {
 		this.position = position;
@@ -18,11 +18,15 @@ public class Player {
 	}
 
 	public Direction getDirection() {
-		return movementDirection;
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
 	}
 
 	public Position calculateNewPosition() {
-		return position.plus(movementDirection);
+		return position.plus(direction);
 	}
 
 }

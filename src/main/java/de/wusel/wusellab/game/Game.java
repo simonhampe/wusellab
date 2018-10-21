@@ -22,6 +22,10 @@ public class Game {
 		}
 	}
 
+	public void setPlayerDirection(int playerIndex, Direction direction) {
+		getPlayer(playerIndex).setDirection(direction);
+	}
+
 	private Player getPlayer(int playerIndex) {
 		if (playerIndex == 1) {
 			return player1;
