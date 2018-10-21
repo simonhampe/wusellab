@@ -29,9 +29,9 @@ public class SwingGameRenderer extends JPanel implements Renderer {
 
             graphics2D.setColor(PLAYER_COLOR);
             graphics2D.drawOval(game.getPlayer1().getPosition().getX(), game.getPlayer1().getPosition().getY(),
-                    10, 10);
+                    PLAYER_SIZE, PLAYER_SIZE);
             graphics2D.drawOval(game.getPlayer2().getPosition().getX(), game.getPlayer2().getPosition().getY(),
-                    10, 10);
+                    PLAYER_SIZE, PLAYER_SIZE);
         }
     }
 

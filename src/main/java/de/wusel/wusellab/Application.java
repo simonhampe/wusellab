@@ -1,9 +1,12 @@
 package de.wusel.wusellab;
 
+import de.wusel.wusellab.game.Direction;
 import de.wusel.wusellab.game.Game;
 import de.wusel.wusellab.render.SwingGameRenderer;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Application {
 
@@ -17,9 +20,30 @@ public class Application {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        for (int i = 1; i <= 50; i++) {
+        frame.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_LEFT:
+                        game.setPlayerDirection(1, Direction.to(-1, 0));
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        game.setPlayerDirection(1, Direction.to(1, 0));
+                        break;
+                    case KeyEvent.VK_UP:
+                        game.setPlayerDirection(1, Direction.to(0, -1));
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        game.setPlayerDirection(1, Direction.to(0, 1));
+                        break;
+                }
+            }
+        });
+
+        while (true) {
             try {
-                Thread.sleep(300);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -27,5 +51,6 @@ public class Application {
             game.step();
             contentPane.update();
         }
+
     }
 }
