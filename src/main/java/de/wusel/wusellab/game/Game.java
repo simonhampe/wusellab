@@ -7,8 +7,29 @@ public class Game {
 	private final Player player1 = new Player(Position.at(0, 50));
 	private final Player player2 = new Player(Position.at(50, 0));
 
-	public void step() {
+	public Game() {
+	}
 
+	public void step() {
+		updatePlayer(player1);
+		updatePlayer(player2);
+	}
+
+	private void updatePlayer(Player player) {
+		Position newPosition = player.calculateNewPosition();
+		if (room.contains(newPosition)) {
+			player.setPosition(newPosition);
+		}
+	}
+
+	private Player getPlayer(int playerIndex) {
+		if (playerIndex == 1) {
+			return player1;
+		}
+		if (playerIndex == 2) {
+			return player2;
+		}
+		throw new IllegalArgumentException("Player " + playerIndex + " does not exist.");
 	}
 
 	public Room getRoom() {

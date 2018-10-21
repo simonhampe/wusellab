@@ -2,8 +2,8 @@ package de.wusel.wusellab.game;
 
 public class Position {
 
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 
 	private Position(int x, int y) {
 		this.x = x;
@@ -14,16 +14,12 @@ public class Position {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public Position plus(Direction direction) {
+		return Position.at(x + direction.getX(), y + direction.getY());
 	}
 
 	public static Position at(int x, int y) {
