@@ -17,16 +17,16 @@ public class PlayerInputHandler extends InputAdapter {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Keys.DOWN:
-                game.setPlayerDirection(1, Direction.to(0, -1));
+                game.addPlayerDirection(1, Direction.DOWN);
                 break;
             case Keys.UP:
-                game.setPlayerDirection(1, Direction.to(0, 1));
+                game.addPlayerDirection(1, Direction.UP);
                 break;
             case Keys.LEFT:
-                game.setPlayerDirection(1, Direction.to(-1, 0));
+                game.addPlayerDirection(1, Direction.LEFT);
                 break;
             case Keys.RIGHT:
-                game.setPlayerDirection(1, Direction.to(1, 0));
+                game.addPlayerDirection(1, Direction.RIGHT);
                 break;
         }
         return true;
@@ -34,6 +34,20 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        return super.keyUp(keycode);
+        switch (keycode) {
+            case Keys.DOWN:
+                game.removePlayerDirection(1, Direction.DOWN);
+                break;
+            case Keys.UP:
+                game.removePlayerDirection(1, Direction.UP);
+                break;
+            case Keys.LEFT:
+                game.removePlayerDirection(1, Direction.LEFT);
+                break;
+            case Keys.RIGHT:
+                game.removePlayerDirection(1, Direction.RIGHT);
+                break;
+        }
+        return true;
     }
 }
