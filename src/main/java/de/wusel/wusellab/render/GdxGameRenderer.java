@@ -12,10 +12,8 @@ import de.wusel.wusellab.game.Game;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class GdxGameRenderer extends ApplicationAdapter {
 
@@ -25,6 +23,7 @@ public class GdxGameRenderer extends ApplicationAdapter {
     private float stateTime = 0f;
 
     private Map<Direction, Animation<TextureRegion>> player1Animations = new HashMap<>();
+    private Map<Direction, Animation<TextureRegion>> player1StandingAnimations = new HashMap<>();
 
     public GdxGameRenderer(Game game) {
         this.game = game;
@@ -49,6 +48,15 @@ public class GdxGameRenderer extends ApplicationAdapter {
         player1Animations.put(Direction.RIGHT, new Animation<>(0.25f, walkFrames[1]));
         player1Animations.put(Direction.DOWN, new Animation<>(0.25f, walkFrames[2]));
         player1Animations.put(Direction.LEFT, new Animation<>(0.25f, walkFrames[3]));
+
+        TextureRegion[][] standFrames = new TextureRegion[4][1];
+        for (int row = 0; row < 4; row++) {
+            standFrames[row][0] = regions[row][1];
+        }
+        player1StandingAnimations.put(Direction.UP, new Animation<>(0.25f, standFrames[0]));
+        player1StandingAnimations.put(Direction.RIGHT, new Animation<>(0.25f, standFrames[1]));
+        player1StandingAnimations.put(Direction.DOWN, new Animation<>(0.25f, standFrames[2]));
+        player1StandingAnimations.put(Direction.LEFT, new Animation<>(0.25f, standFrames[3]));
     }
 
     @Override
@@ -57,20 +65,14 @@ public class GdxGameRenderer extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stateTime += Gdx.graphics.getDeltaTime();
-        TextureRegion currentFrame = player1Animations.get(getDominantPlayerDirection(game.getPlayer1().getActiveDirections())).getKeyFrame(stateTime, true);
+        TextureRegion currentFrame =
+                game.getPlayer1().isMoving() ?
+                        player1Animations.get(game.getPlayer1().getFacingDirection()).getKeyFrame(stateTime, true) :
+                        player1StandingAnimations.get(game.getPlayer1().getFacingDirection()).getKeyFrame(stateTime, true);
         spriteBatch.begin();
         spriteBatch.draw(currentFrame, game.getPlayer1().getPosition().getX(), game.getPlayer1().getPosition().getY());
         spriteBatch.end();
 
-    }
-
-    private Direction getDominantPlayerDirection(Set<Direction> activeDirections) {
-        // Always prefer horizontal movements
-        for (Direction dir : Arrays.asList(Direction.RIGHT, Direction.LEFT, Direction.DOWN, Direction.UP)) {
-            if (activeDirections.contains(dir))
-                return dir;
-        }
-        return Direction.RIGHT;
     }
 
     @Override
