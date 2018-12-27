@@ -7,6 +7,8 @@ public class Game {
     private final Player player1 = new Player(Position.at(0, 50));
     private final Player player2 = new Player(Position.at(50, 0));
 
+    private final Area goal = new Area(700,500,100,100);
+
     public Game() {
     }
 
@@ -43,6 +45,8 @@ public class Game {
     public Room getRoom() {
         return room;
     }
+
+    public Area getGoal() { return goal; }
 
     public Player getPlayer1() {
         return player1;

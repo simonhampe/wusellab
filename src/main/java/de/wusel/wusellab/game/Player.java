@@ -12,6 +12,8 @@ public class Player {
 
     private Direction facing = Direction.DOWN;
 
+    private double speed = 2;
+
     public Player(Position position) {
         this.position = position;
     }
@@ -64,7 +66,7 @@ public class Player {
     }
 
     public Position calculateNewPosition() {
-        return position.plus(getEffectiveDirection());
+        return position.plus(getEffectiveDirection(), speed);
     }
 
 }
